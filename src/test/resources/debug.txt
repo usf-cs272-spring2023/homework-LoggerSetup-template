@@ -1,0 +1,10 @@
+[001 TR] LoggerSetup.java:22 main - Turkey 
+[002 DE] LoggerSetup.java:23 main - Duck 
+[003 IN] LoggerSetup.java:24 main - Ibis 
+[004 WA] LoggerSetup.java:25 main - Wren 
+[005 ER] LoggerSetup.java:28 main - Eastern java.lang.Exception: Eagle
+	at edu.usfca.cs272.LoggerSetup.outputMessages(LoggerSetup.java:28)
+	at edu.usfca.cs272.LoggerSetup.main(LoggerSetup.java:39)
+[006 FA] LoggerSetup.java:29 main - Catching java.lang.RuntimeException: Falcon
+	at edu.usfca.cs272.LoggerSetup.outputMessages(LoggerSetup.java:29)
+	at edu.usfca.cs272.LoggerSetup.main(LoggerSetup.java:39)
