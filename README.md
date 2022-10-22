@@ -49,9 +49,9 @@ Below are some hints that may help with this homework assignment:
 
   - For the class logger, use `edu.usfca.cs272.LoggerSetup` as the `name` attribute of the `Logger` tag in your configuration file. For example:
 
-        ```
-        <Logger name="edu.usfca.cs272.LoggerSetup" ...
-        ```
+      ```
+      <Logger name="edu.usfca.cs272.LoggerSetup" ...
+      ```
 
   - The `log4j2.xml` file in the [lecture examples](https://github.com/usf-cs272-fall2022/lectures/) is a good starting point.
 
