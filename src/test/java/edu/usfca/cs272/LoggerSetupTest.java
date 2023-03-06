@@ -16,10 +16,14 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.MethodOrderer.MethodName;
+import org.junit.jupiter.api.ClassOrderer;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestClassOrder;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -36,9 +40,9 @@ import org.junit.jupiter.params.provider.ValueSource;
  * output.
  *
  * @author CS 272 Software Development (University of San Francisco)
- * @version Fall 2022
+ * @version Spring 2023
  */
-@TestMethodOrder(MethodName.class)
+@TestClassOrder(ClassOrderer.ClassName.class)
 public class LoggerSetupTest {
 	/** Used to capture console output. */
 	private static List<String> captured = null;
@@ -58,6 +62,15 @@ public class LoggerSetupTest {
 	public static void setup() throws IOException {
 		// delete any old debug files
 		Files.deleteIfExists(Path.of("debug.log"));
+
+		// make sure class is expected # of lines
+		String name = LoggerSetup.class.getSimpleName() + ".java";
+		Path java = Path.of("src", "main", "java");
+		Path cs272 = Path.of("edu", "usfca", "cs272");
+		Path file = java.resolve(cs272).resolve(name);
+		long lines = Files.lines(file).count();
+		Assumptions.assumeTrue(lines == 47, "Aborting tests; it looks like you modified the " +
+		"LoggerSetup file! Make sure to restore it to the original version.");
 
 		// capture all system console output
 		PrintStream original = System.out;
@@ -83,14 +96,16 @@ public class LoggerSetupTest {
 	 * Tests configuration file location and name.
 	 */
 	@Nested
+	@TestMethodOrder(OrderAnnotation.class)
 	public class A_ConfigFileTests {
 		/**
-		 * Make sure you are not using the log4j2-test.* name. That is the config
-		 * file name used for test code not main code.
+		 * Make sure you are not using the log4j2-test.* name. That is the config file
+		 * name used for test code not main code.
 		 *
 		 * @throws IOException if IO error occurs
 		 */
 		@Test
+		@Order(1)
 		public void testNotTest() throws IOException {
 			var found = Files.walk(Path.of("."))
 					.filter(Files::isRegularFile)
@@ -99,7 +114,8 @@ public class LoggerSetupTest {
 					.filter(name -> name.matches("log4j2-test\\.\\w+"))
 					.toList();
 
-			assertEquals(Collections.emptyList(), found, "Do not use this filename to configure logging of main code.");
+			assertEquals(Collections.emptyList(), found,
+					"Do not use this filename to configure logging of main code.");
 		}
 
 		/**
@@ -108,6 +124,7 @@ public class LoggerSetupTest {
 		 * @throws IOException if IO error occurs
 		 */
 		@Test
+		@Order(2)
 		public void testNameCorrect() throws IOException {
 			var found = Files.walk(Path.of("."))
 					.filter(Files::isRegularFile)
@@ -125,6 +142,7 @@ public class LoggerSetupTest {
 		 * @throws IOException if IO error occurs
 		 */
 		@Test
+		@Order(3)
 		public void testLocationCorrect() throws IOException {
 			var found = Files.walk(Path.of("src", "main", "resources"))
 					.filter(Files::isRegularFile)
@@ -142,6 +160,7 @@ public class LoggerSetupTest {
 		 * @throws IOException if IO error occurs
 		 */
 		@Test
+		@Order(4)
 		public void testExtensionCorrect() throws IOException {
 			var found = Files.walk(Path.of("."))
 					.filter(Files::isRegularFile)
@@ -213,11 +232,12 @@ public class LoggerSetupTest {
 	public class D_DebugFileTests {
 		/**
 		 * Tests that the expected levels are in the output file.
+		 *
 		 * @param expected the expected level output to find in the debug file
 		 * @throws IOException if unable to read debug file
 		 */
 		@ParameterizedTest
-		@ValueSource(strings = {"Turkey", "Duck", "Ibis", "Wren", "Eagle", "Falcon"})
+		@ValueSource(strings = { "Turkey", "Duck", "Ibis", "Wren", "Eagle", "Falcon" })
 		public void testLevels(String expected) throws IOException {
 			String actual = Files.readString(Path.of("debug.log"), UTF_8);
 			String regex = String.format("(?s).*?\\b%s\\b.*?", expected);

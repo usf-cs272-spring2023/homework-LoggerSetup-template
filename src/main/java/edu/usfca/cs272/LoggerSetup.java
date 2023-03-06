@@ -8,10 +8,11 @@ import org.apache.logging.log4j.Logger;
  * Generates several log messages to test Log4j2 setup.
  *
  * @author CS 272 Software Development (University of San Francisco)
- * @version Fall 2022
+ * @version Spring 2023
  */
 public class LoggerSetup {
-	// TODO See the README file for what to do for this homework
+	// NOTE: See the README file for what to do for this homework.
+	// NOTE: Do NOT modify this class!
 
 	/**
 	 * Outputs all levels of messages to a logger.

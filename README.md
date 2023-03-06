@@ -13,7 +13,7 @@ The `log4j2` third-party package should be setup automatically by `maven` when y
 
 Configure the root logger to output `INFO` messages and higher to the console and `ALL` messages to the log file. Configure the class-specific `LoggerSetup` logger to output `FATAL` messages to the console (none to the log file). The log file should be named `debug.log` and saved in the current working directory. You can use the example configuration files from lecture as a starting point.
 
-Only output the level (unchanged), message, and **short** error message (if appropriate) to the console. The expected console output should look like:
+Only output the logging level (unchanged), message, and **short** error message (if appropriate) to the console. The expected console output should look like:
 
 ```
 Root Logger:
@@ -26,19 +26,19 @@ Class Logger:
 FATAL: Catching Falcon
 ```
 
-Include the 3 digit sequence number, level (using only 2 letters), file name, line number, thread name, message, 3 lines from any throwable stack trace (if appropriate), and a newline character (`%n`) in the `debug.log` file. See the `test/resources/debug.txt` file for the expected file output. It is also included below:
+Include the 3 digit sequence number, logging level using only 2 letters, file name, line number, thread name, message, 3 lines from any throwable stack trace (if appropriate), and a newline character (`%n`) in the `debug.log` file. See the `test/resources/debug.txt` file for the expected file output. It is also included below:
 
 ```
-[001 TR] LoggerSetup.java:22 main - Turkey 
-[002 DE] LoggerSetup.java:23 main - Duck 
-[003 IN] LoggerSetup.java:24 main - Ibis 
-[004 WA] LoggerSetup.java:25 main - Wren 
-[005 ER] LoggerSetup.java:28 main - Eastern java.lang.Exception: Eagle
-	at edu.usfca.cs272.LoggerSetup.outputMessages(LoggerSetup.java:28)
-	at edu.usfca.cs272.LoggerSetup.main(LoggerSetup.java:39)
-[006 FA] LoggerSetup.java:29 main - Catching java.lang.RuntimeException: Falcon
+[001 TR] LoggerSetup.java:23 main - Turkey 
+[002 DE] LoggerSetup.java:24 main - Duck 
+[003 IN] LoggerSetup.java:25 main - Ibis 
+[004 WA] LoggerSetup.java:26 main - Wren 
+[005 ER] LoggerSetup.java:29 main - Eastern java.lang.Exception: Eagle
 	at edu.usfca.cs272.LoggerSetup.outputMessages(LoggerSetup.java:29)
-	at edu.usfca.cs272.LoggerSetup.main(LoggerSetup.java:39)
+	at edu.usfca.cs272.LoggerSetup.main(LoggerSetup.java:40)
+[006 FA] LoggerSetup.java:30 main - Catching java.lang.RuntimeException: Falcon
+	at edu.usfca.cs272.LoggerSetup.outputMessages(LoggerSetup.java:30)
+	at edu.usfca.cs272.LoggerSetup.main(LoggerSetup.java:40)
 ```
 
 You should **NOT** modify the `LoggerSetup.java`, `LoggerSetupTest.java`, or `test/resources/debug.txt` files. You should only create a **NEW** file in the correct location to configure log4j2.
@@ -69,4 +69,4 @@ Use the "Tasks" view in Eclipse to find the `TODO` comments for what need to be 
 
 The tests are provided in the `src/test/` directory; do not modify any of the files in that directory. Check the run details on GitHub Actions for how many points each test group is worth. 
 
-See the [Homework Guides](https://usf-cs272-fall2022.github.io/guides/homework/) for additional details on homework requirements and submission.
+See the [Homework Resources](https://usf-cs272-spring2023.github.io/resources/homework/) for additional details on homework requirements and submission.
